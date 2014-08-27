@@ -1,25 +1,37 @@
 package  
 {
 	import flash.display.Sprite;
+	import org.flashdevelop.utils.TraceLevel;
 	/**
 	 * ...
 	 * @author Menno Jongejan
 	 */
 	public class Game extends Sprite
 	{
+		//game setup
+		private var _player:Player;
+		private var _background:Background;
+		private var _level:Level;
 		
-		//random vars
-		private var radians:Number = 0;
-		private	var degrees:Number = 0;
-		private	var pos_x:Number = 400; // random primary x position
-		private	var pos_y:Number = 400; // random primary y position
-		private	var radius:Number = 100;
-		private var myIndetifier:Timer;
-		private var derpcounter:Number = 0;
-		private var firstTime:Boolean;
+		//vars for rotation
+		private var _radians:Number = 0;
+		private	var _degrees:Number = 0;
+		private	var _pos_x:Number = 400; // random primary x position
+		private	var _pos_y:Number = 400; // random primary y position
+		private	var _radius:Number = 100;
+		private var _myIndetifier:Timer;
+		private var _degreesCounter:Number = 0;
+		private var _firstTime:Boolean;
 		
 		public function Game() 
 		{
+			_player = new Player();
+			_background = new Background();
+			_level = new Level();
+			
+			addChild(_player);
+			addChild(_background);
+			addChild(_level);
 			
 		}
 		
