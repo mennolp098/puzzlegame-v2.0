@@ -12,6 +12,7 @@ package
 		private var _player:Player;
 		private var _background:Background;
 		private var _level:Level;
+		private var _lever:enemy;
 		
 		//vars for rotation
 		private var _radians:Number = 0;
@@ -28,10 +29,12 @@ package
 			_player = new Player();
 			_background = new Background();
 			_level = new Level();
+			_lever = new enemy();
 			
 			addChild(_player);
 			addChild(_background);
 			addChild(_level);
+			addChild(_lever);
 			
 			addEventListener(Event.ENTER_FRAME, loop);
 		}
