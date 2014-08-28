@@ -59,6 +59,9 @@ package gamejam.object {
 				
 				if(_onGround) {
 					_movieClip.y -= Level.GRAVITY;
+					
+					if(_velocity.x == 0)
+						_movieClip.gotoAndStop(1);
 				} else {
 					_movieClip.gotoAndStop(3);
 				}

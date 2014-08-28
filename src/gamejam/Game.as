@@ -1,10 +1,11 @@
 package gamejam {
 	import flash.events.Event;
 	import flash.geom.Point;
-
+	import gamejam.object.Door;
 	import gamejam.object.Player;
 	import gamejam.world.Background;
 	import gamejam.world.Level;
+	import gamejam.object.Spikes;
 	
 	public class Game {
 		private var _player:Player;
@@ -25,15 +26,12 @@ package gamejam {
 			_door = new Door();
 			_popupMenu = new PopupMenu();
 			
-			_entities.push(new EntityPlayer(new Point(200, 100)));
-			
-			Main.instance.addChild(_popupMenu);
-			
 			_popupMenu.x = 400;
 			_popupMenu.y = 400;
 			_popupMenu.visible = false;
-			_level._movieClip.x = 400;
-			_level._movieClip.y = 400;
+			
+			Main.instance.addChild(_popupMenu);
+			
 			Main.instance.addEventListener(Event.ENTER_FRAME, update);
 		}
 		

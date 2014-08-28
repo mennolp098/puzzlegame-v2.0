@@ -9,7 +9,7 @@ package gamejam.object
 	{
 		public function Door() 
 		{
-			super(new enemy(), new Point(0, 0), 0);
+			super(new enemy(), new Point(0, 0));
 		}
 		
 	}
