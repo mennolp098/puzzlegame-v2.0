@@ -1,12 +1,7 @@
-package  
-{
+package {
 	import flash.display.MovieClip;
-	/**
-	 * ...
-	 * @author Menno Jongejan
-	 */
-	public class Level extends MovieClip
-	{
+	
+	public class Level extends MovieClip {
 		private var _level:platform;
 		public function Level() 
 		{

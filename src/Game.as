@@ -2,12 +2,16 @@ package
 {
 	import flash.display.Sprite;
 	import gamejam.entity.EntityPlayer;
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
+	import flash.events.Event;
 	import org.flashdevelop.utils.TraceLevel;
+	import flash.geom.Point;
 	/**
 	 * ...
 	 * @author Menno Jongejan
 	 */
-	public class Game extends Sprite
+	public class Game
 	{
 		//game setup
 		private var _player:EntityPlayer;
@@ -27,17 +31,17 @@ package
 		
 		public function Game() 
 		{
-			_player = new EntityPlayer();
+			_player = new EntityPlayer(new Point(0, 0));
 			_background = new Background();
 			_level = new Level();
 			_lever = new enemy();
 			
-			addChild(_player);
-			addChild(_background);
-			addChild(_level);
-			addChild(_lever);
+			Main.instance.addChild(_player);
+			Main.instance.addChild(_background);
+			Main.instance.addChild(_level);
+			Main.instance.addChild(_lever);
 			
-			addEventListener(Event.ENTER_FRAME, loop);
+			Main.instance.addEventListener(Event.ENTER_FRAME, loop);
 		}
 		private function loop(e:Event):void
 		{	
@@ -45,17 +49,17 @@ package
 			_firstTime = true;
 			_myIndetifier = new Timer(10, 90);
 			_myIndetifier.addEventListener(TimerEvent.TIMER, levelRotation);
-			if (_player.platformRotate) {
+			/*if (_player.platformRotate) {
 				_player.platformRotate = false;
 				_player.onCollision = false;
 				_myIndetifier.start();
 			}
-			if (_derpcounter == 90) {
-				_derpcounter = 0;
+			if (_degreesCounter == 90) {
+				_degreesCounter = 0;
 				_player.onCollision = true;
 				_firstTime = true;
 				_myIndetifier.reset();
-			}
+			}*/
 		}
 		public function levelRotation(e:TimerEvent):void 
 		{
@@ -71,8 +75,8 @@ package
 			_radians = _degrees * Math.PI/ 180;
 			var new_y:Number = Math.sin(_radians) * _radius // because sin A = y/r
 			var new_x:Number = Math.cos(_radians) * _radius // because cos A = x/r
-			_player.x = new_x + pos_x;
-			_player.y = new_y + pos_y;
+			_player.x = new_x + _pos_x;
+			_player.y = new_y + _pos_y;
 			
 			_level.rotation += 1 * -1;
 			
