@@ -1,11 +1,11 @@
 package gamejam
 {
 	import flash.display.Sprite;
-	import gamejam.entity.EntityPlayer;
+	import gamejam.object.entity.EntityPlayer;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 	import flash.events.Event;
-	import gamejam.entity.EntityPlayer;
+	import gamejam.object.entity.EntityPlayer;
 	import gamejam.world.Background;
 	import gamejam.world.Level;
 	import org.flashdevelop.utils.TraceLevel;
@@ -35,12 +35,11 @@ package gamejam
 		
 		public function Game() 
 		{
-			_player = new EntityPlayer(new Point(0, 0));
+			_player = new EntityPlayer(new Point(100, 100));
 			_background = new Background();
 			_level = new Level();
 			_lever = new enemy();
 			
-			Main.instance.addChild(_player);
 			Main.instance.addChild(_background);
 			Main.instance.addChild(_level);
 			Main.instance.addChild(_lever);

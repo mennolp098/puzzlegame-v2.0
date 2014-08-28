@@ -1,5 +1,4 @@
-package gamejam.platform 
-{
+package gamejam.object.platform {
 	/**
 	 * ...
 	 * @author Kevin Krol

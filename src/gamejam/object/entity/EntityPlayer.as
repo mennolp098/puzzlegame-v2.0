@@ -1,4 +1,4 @@
-package gamejam.entity {
+package gamejam.object.entity {
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -21,7 +21,7 @@ package gamejam.entity {
 		private var _highJump:Boolean;
 		
 		public function EntityPlayer(position:Point) {
-			super(new mannetje(), position, 0);
+			super(new mannetje(), position, 90);
 			
 			_velocity = new Vector3D();
 			
@@ -31,7 +31,7 @@ package gamejam.entity {
 			_onGround = false;
 			_highJump = false;
 			
-			Main.instance.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
+			Main.instance.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				switch(e.keyCode) {
 				case Keyboard.W:
 					jump();
@@ -48,7 +48,7 @@ package gamejam.entity {
 				}
 			});
 			
-			Main.instance.addEventListener(KeyboardEvent.KEY_UP, function(e:KeyboardEvent):void {
+			Main.instance.stage.addEventListener(KeyboardEvent.KEY_UP, function(e:KeyboardEvent):void {
 				if((_velocity.x < -1 && e.keyCode == Keyboard.A) || (_velocity.x > -1 && e.keyCode == Keyboard.D)) {
 					_velocity.x = 0;
 				}
@@ -59,7 +59,7 @@ package gamejam.entity {
 			super.update();
 			
 			_movieClip.x += (_speed * _velocity.x);
-			_movieClip.y += (_jumpForce + _velocity.y - (World.GRAVITY * _gravityMultiplier));
+			_movieClip.y += (_jumpForce + _velocity.y + (World.GRAVITY * _gravityMultiplier));
 			
 			trace(_movieClip.x + " " + _movieClip.y);
 		}
