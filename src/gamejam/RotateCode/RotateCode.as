@@ -1,10 +1,6 @@
-package  
-{
+package gamejam.RotateCode {
 	import flash.display.MovieClip;
-	/**
-	 * ...
-	 * @author Menno Jongejan
-	 */
+	
 	public class RotateCode extends MovieClip
 	{
 		private var _rotateCode:Array;

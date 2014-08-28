@@ -1,4 +1,4 @@
-package
+package gamejam
 {
 	import flash.display.Sprite;
 	import gamejam.entity.EntityPlayer;
