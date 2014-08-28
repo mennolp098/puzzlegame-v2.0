@@ -28,6 +28,7 @@ package
 		private var _myIndetifier:Timer;
 		private var _degreesCounter:Number = 0;
 		private var _firstTime:Boolean;
+		private var _rotateVal:Number = 1;
 		
 		public function Game() 
 		{
@@ -61,6 +62,17 @@ package
 				_myIndetifier.reset();
 			}
 		}
+		private function leverPulling();
+			{
+				if (_lever == true)
+				{
+					_rotateVal = -1;
+				}
+				else
+				{
+					_rotateVal = 1;
+				}
+			}
 		public function levelRotation(e:TimerEvent):void 
 		{
 			if (_firstTime) {
@@ -74,14 +86,14 @@ package
 				var angle:Number = Math.atan2(_player.y-400,_player.x-400);
 				_degrees = angle * 180/ Math.PI;
 			}
-			_degrees = _degrees + 1 * -1; // each time degrees is increased by 1 degrees
+			_degrees = _degrees + 1 * _rotateVal; // each time degrees is increased by 1 degrees
 			_radians = _degrees * Math.PI/ 180;
 			var new_y:Number = Math.sin(_radians) * _radius // because sin A = y/r
 			var new_x:Number = Math.cos(_radians) * _radius // because cos A = x/r
 			_player.x = new_x + _pos_x;
 			_player.y = new_y + _pos_y;
 			
-			_level.rotation += 1 * -1;
+			_level.rotation += 1 * _rotateVal;
 			
 			_degreesCounter++;
 		}
