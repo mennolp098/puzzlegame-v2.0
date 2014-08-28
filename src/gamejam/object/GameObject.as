@@ -40,6 +40,8 @@ package gamejam.object {
 			_rotateCodeCorrect = true;
 		}
 		
+		protected function checkForCollision():void {}
+		
 		private function handleSceneRotation():void {
 			if(!_rotating)
 				initSceneRotation();

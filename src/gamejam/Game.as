@@ -29,10 +29,9 @@ package gamejam {
 			_popupMenu.x = 400;
 			_popupMenu.y = 400;
 			_popupMenu.visible = false;
-			_level._movieClip.x = 400;
-			_level._movieClip.y = 400;
+			
 			Main.instance.addEventListener(Event.ENTER_FRAME, update);
-			_popupMenu.addEventListener(PopupMenu.RESETLEVEL, resetLevel);
+			_popupMenu.addEventListener(PopupMenu.RESTARTLEVEL, resetLevel);
 			_popupMenu.addEventListener(PopupMenu.NEXTLEVEL, nextLevel);
 			
 			Main.instance.addChild(_popupMenu);
@@ -46,10 +45,10 @@ package gamejam {
 		private function update(evt:Event):void {
 			_player.update();
 		}
-		private function resetLevel() {
+		private function resetLevel():void {
 			// TO DO: reset level
 		}
-		private function nextLevel() {
+		private function nextLevel():void {
 			// TO DO: next level
 		}
 	}
