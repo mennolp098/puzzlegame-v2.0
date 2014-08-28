@@ -1,4 +1,4 @@
-package  
+package  gamejam.world
 {
 	import flash.display.MovieClip;
 	/**

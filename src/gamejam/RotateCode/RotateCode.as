@@ -1,4 +1,4 @@
-package  
+package  gamejam.rotatecode
 {
 	import flash.display.MovieClip;
 	/**

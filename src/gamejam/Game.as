@@ -1,10 +1,12 @@
-package  
+package gamejam
 {
 	import flash.display.Sprite;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 	import flash.events.Event;
 	import gamejam.entity.EntityPlayer;
+	import gamejam.world.Background;
+	import gamejam.world.Level;
 	import org.flashdevelop.utils.TraceLevel;
 	import flash.geom.Point;
 	/**
@@ -54,7 +56,7 @@ package
 				_player.platformRotate = false;
 				_player.onCollision = false;
 				_myIndetifier.start();
-			}
+			} 
 			if (_degreesCounter == 90) {
 				_degreesCounter = 0;
 				_player.onCollision = true;
@@ -62,10 +64,9 @@ package
 				_myIndetifier.reset();
 			}
 		}
-		private function leverPulling();
+		private function leverPulling():void
 			{
-				if (_lever == true)
-				{
+				if(_rotateVal == 1){
 					_rotateVal = -1;
 				}
 				else
