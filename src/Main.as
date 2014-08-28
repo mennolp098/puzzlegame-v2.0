@@ -2,6 +2,7 @@ package {
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import gamejam.Game;
 	
 	public class Main extends Sprite {
 		public static var instance:Main;
