@@ -4,8 +4,11 @@ package gamejam.object.entity {
 	import flash.geom.Vector3D;
 	import flash.ui.Keyboard;
 	import gamejam.world.World;
+	import flash.events.Event;
 	
 	public class EntityPlayer extends Entity {
+		public static const PULLLEVER:String = "pulllever";
+		
 		private static const DEFAULT_SPEED:int = 3;
 		private static const DEFAULT_JUMP_FORCE:int = 15;
 		private static const HIGH_JUMP_FORCE:int = 20;
@@ -16,11 +19,11 @@ package gamejam.object.entity {
 		private var _jumpForce:int;
 		private var _gravityMultiplier:int;
 		
-		private var _onGround:Boolean;
+		public var _onGround:Boolean;
 		private var _highJump:Boolean;
 		
 		public function EntityPlayer(position:Point) {
-			super(new mannetje(), position, 90);
+			super(new mannetje(), position, 0);
 			
 			_velocity = new Vector3D();
 			
@@ -30,16 +33,19 @@ package gamejam.object.entity {
 			_onGround = false;
 			_highJump = false;
 			
+			_movieClip.gotoAndStop(1);
+			
 			Main.instance.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				switch(e.keyCode) {
 				case Keyboard.W:
-					jump();
+					if (_onGround)
+						_jumpForce = _highJump ? HIGH_JUMP_FORCE : DEFAULT_JUMP_FORCE;
 					break;
 				case Keyboard.A:
 					_velocity.x = -1;
 					break;
 				case Keyboard.S:
-					// TODO: action();
+					pullLever();
 					break;
 				case Keyboard.D:
 					_velocity.x = 1;
@@ -54,6 +60,10 @@ package gamejam.object.entity {
 			});
 		}
 		
+		private function pullLever():void {
+			Main.instance.dispatchEvent(new Event(PULLLEVER));
+		}
+		
 		public override function update():void {
 			super.update();
 			
@@ -66,7 +76,11 @@ package gamejam.object.entity {
 		}
 		
 		private function jump():void {
+			_movieClip.x += (_speed * _velocity.x);
+			_movieClip.y += (_jumpForce*-1 + _velocity.y + (World.GRAVITY * _gravityMultiplier));
 			
+			if(_jumpForce > 0)
+				_jumpForce--;
 		}
 	}
 }

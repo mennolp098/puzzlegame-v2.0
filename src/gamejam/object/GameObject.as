@@ -5,7 +5,7 @@ package gamejam.object {
 	import gamejam.utils.Rotator;
 	
 	public class GameObject {
-		protected var _movieClip:MovieClip;
+		public var _movieClip:MovieClip;
 		
 		private var _rotator:Rotator;
 		
