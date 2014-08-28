@@ -9,7 +9,7 @@ package gamejam.object
 	{
 		public function Spikes() 
 		{
-			super(new enemy(), new Point(400, 500), 0);
+			super(new enemy(), new Point(400, 500));
 		}
 		
 	}
