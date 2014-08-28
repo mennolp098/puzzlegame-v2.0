@@ -1,6 +1,7 @@
 package gamejam 
 {
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	/**
 	 * ...
 	 * @author Menno Jongejan
