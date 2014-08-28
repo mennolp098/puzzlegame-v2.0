@@ -22,13 +22,13 @@ package gamejam.object {
 			_movieClip.rotation = rotation;
 			
 			_rotationStart = 0;
-			_rotateDirection = 0;
+			_rotateDirection = 1;
 			
 			Main.instance.addChild(_movieClip);
 		}
 		
 		public function update():void {
-			if(!_rotateDirection == 0) {
+			if(_rotateDirection == 0) {
 				checkForCollision();
 			} else {
 				handleSceneRotation();
@@ -51,7 +51,7 @@ package gamejam.object {
 			_movieClip.y = _rotator.getNewPosition().y;
 			
 			if(_movieClip.rotation >= (_movieClip.rotation + _rotationStart)) {
-				_movieClip.rotation = (_movieClip.rotation + _rotationStart);
+				_movieClip.rotation = (_movieClip.rotation + _rotationStart );
 				_rotating = false;
 				_rotateDirection = 0;
 			}

@@ -16,9 +16,9 @@ package gamejam.object.entity {
 		private var _velocity:Vector3D;
 		
 		private var _speed:int;
-		private var _jumpForce:int;
 		private var _gravityMultiplier:int;
 		
+		public var _jumpForce:int;
 		public var _onGround:Boolean;
 		private var _highJump:Boolean;
 		
@@ -39,15 +39,20 @@ package gamejam.object.entity {
 				switch(e.keyCode) {
 				case Keyboard.W:
 					jump();
+					_movieClip.gotoAndStop(3);
 					break;
 				case Keyboard.A:
 					_velocity.x = -1;
+					_movieClip.gotoAndStop(2);
+					_movieClip.scaleX = 1;
 					break;
 				case Keyboard.S:
 					pullLever();
 					break;
 				case Keyboard.D:
 					_velocity.x = 1;
+					_movieClip.gotoAndStop(2);
+					_movieClip.scaleX = -1;
 					break;
 				}
 			});
@@ -55,6 +60,7 @@ package gamejam.object.entity {
 			Main.instance.stage.addEventListener(KeyboardEvent.KEY_UP, function(e:KeyboardEvent):void {
 				if((_velocity.x < 0 && e.keyCode == Keyboard.A) || (_velocity.x > 0 && e.keyCode == Keyboard.D)) {
 					_velocity.x = 0;
+					_movieClip.gotoAndStop(1);
 				}
 			});
 		}
@@ -65,7 +71,9 @@ package gamejam.object.entity {
 		
 		public override function update():void {
 			super.update();
-			
+			if (!_onGround) {
+				_movieClip.gotoAndStop(3);
+			}
 			if(!isRotating()) {
 				_movieClip.x += (_speed * _velocity.x);
 				_movieClip.y += (_jumpForce + _velocity.y + (World.GRAVITY * _gravityMultiplier));
