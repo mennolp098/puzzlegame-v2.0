@@ -1,26 +1,49 @@
 package gamejam.utils {
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	
 	public class Rotator {
-		private var timer:Timer;
+		public static const STAGE_CENTER:Point = new Point(Main.instance.stage.stageWidth / 2, Main.instance.stage.stageHeight / 2);
 		
-		private var radians:Number;
-		private var degrees:Number;
-		private var radius:Number;
+		public static const DIRECTION_LEFT:int = -1;
+		public static const DIRECTION_RIGHT:int = 1;
 		
-		private var newRotation:Number;
+		private static const DELAY:int = 10;
 		
-		public function Rotator(position:Point) {
+		private var _timer:Timer;
+		
+		private var _oldPosition:Point;
+		private var _newPosition:Point;
+		
+		private var _radians:Number;
+		private var _degrees:Number;
+		private var _radius:Number;
+		
+		private var _direction:int;
+		
+		public function Rotator(position:Point, radius:Number, degrees:Number, direction:int) {
+			this._oldPosition = position;
+			this._radius = radius;
+			this._degrees = degrees;
+			this._direction = direction;
 			
+			_newPosition = position;
+			
+			_timer = new Timer(DELAY, 90);
+			_timer.start();
+			
+			_timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
+				_degrees = _degrees + 1 * _direction;
+				_radians = _degrees * Math.PI / 180;
+				
+				_newPosition.x = (Math.sin(_radians) * _radius) + STAGE_CENTER.x;
+				_newPosition.y = (Math.cos(_radians) * _radius) + STAGE_CENTER.y;
+			});
 		}
 		
-		public function stop():void {
-			timer.stop();
-		}
-		
-		public function getNewRotation():Number {
-			return newRotation;
+		public function getNewPosition():Point {
+			return _newPosition;
 		}
 	}
 }

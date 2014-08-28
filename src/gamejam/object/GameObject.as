@@ -4,14 +4,14 @@ package gamejam.object {
 	import flash.geom.Point;
 	import gamejam.utils.Rotator;
 	
-	public class GameObject extends MovieClip {
+	public class GameObject {
 		protected var _movieClip:MovieClip;
 		
 		private var _rotator:Rotator;
 		
 		private var _rotationStart:int;
+		private var _rotateDirection:int;
 		
-		private var _hasToRotate:Boolean;
 		private var _rotating:Boolean;
 		
 		public function GameObject(movieClip:MovieClip, position:Point, rotation:Number) {
@@ -22,17 +22,21 @@ package gamejam.object {
 			_movieClip.rotation = rotation;
 			
 			_rotationStart = 0;
-			_hasToRotate = false;
+			_rotateDirection = 0;
 			
 			Main.instance.addChild(_movieClip);
 		}
 		
 		public function update():void {
-			if(!_hasToRotate) {
+			if(!_rotateDirection == 0) {
 				checkForCollision();
 			} else {
 				handleSceneRotation();
 			}
+		}
+		
+		public function rotate(direction:int):void {
+			_rotateDirection = direction;
 		}
 		
 		private function checkForCollision():void {
@@ -43,12 +47,13 @@ package gamejam.object {
 			if(!_rotating)
 				initSceneRotation();
 			
-			// TODO
+			_movieClip.x = _rotator.getNewPosition().x;
+			_movieClip.y = _rotator.getNewPosition().y;
 			
 			if(_movieClip.rotation >= (_movieClip.rotation + _rotationStart)) {
 				_movieClip.rotation = (_movieClip.rotation + _rotationStart);
 				_rotating = false;
-				_hasToRotate = false;
+				_rotateDirection = 0;
 			}
 		}
 		
@@ -56,37 +61,17 @@ package gamejam.object {
 			_rotationStart = _movieClip.rotation;
 			
 			var position:Point = new Point(_movieClip.x, _movieClip.y);
-			var stageCenter:Point 
-		//	var radius:Number = position.subtract(
 			
-			//_rotator = new Rotator(new Point(_movieClip.x, _movieClip.y), );
+			var radius:Number = position.subtract(Rotator.STAGE_CENTER).length;
+			var angle:Number = Math.atan2(_movieClip.y - Rotator.STAGE_CENTER.x, _movieClip.x - Rotator.STAGE_CENTER.y);
+			var degrees:Number = angle * 180 / Math.PI;
 			
+			_rotator = new Rotator(new Point(_movieClip.x, _movieClip.y), radius, degrees, Rotator.DIRECTION_RIGHT);
 			_rotating = true;
+		}
+		
+		public function isRotating():Boolean {
+			return _rotating;
 		}
 	}
 }
-/*
-public function levelRotation(e:TimerEvent):void 
-		{
-			if (_firstTime) {
-				_firstTime = false;
-				
-				var playerpos:Point = new Point(_player.x, _player.y);
-				var centerpos:Point = new Point(400, 400);
-				
-				_radius = playerpos.subtract(centerpos).length;
-				
-				var angle:Number = Math.atan2(_player.y-400,_player.x-400);
-				_degrees = angle * 180/ Math.PI;
-			}
-			_degrees = _degrees + 1 * _rotateVal; // each time degrees is increased by 1 degrees
-			_radians = _degrees * Math.PI/ 180;
-			var new_y:Number = Math.sin(_radians) * _radius // because sin A = y/r
-			var new_x:Number = Math.cos(_radians) * _radius // because cos A = x/r
-			_player.x = new_x + _pos_x;
-			_player.y = new_y + _pos_y;
-			
-			_level.rotation += 1 * _rotateVal;
-			
-			_degreesCounter++;
-		}*/

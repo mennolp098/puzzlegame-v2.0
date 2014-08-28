@@ -1,5 +1,4 @@
 package gamejam.object.entity {
-	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
@@ -58,10 +57,12 @@ package gamejam.object.entity {
 		public override function update():void {
 			super.update();
 			
-			_movieClip.x += (_speed * _velocity.x);
-			_movieClip.y += (_jumpForce + _velocity.y + (World.GRAVITY * _gravityMultiplier));
-			
-			trace(_movieClip.x + " " + _movieClip.y);
+			if(!isRotating()) {
+				_movieClip.x += (_speed * _velocity.x);
+				_movieClip.y += (_jumpForce + _velocity.y + (World.GRAVITY * _gravityMultiplier));
+				
+				//trace(_movieClip.x + " " + _movieClip.y);
+			}
 		}
 		
 		private function jump():void {
