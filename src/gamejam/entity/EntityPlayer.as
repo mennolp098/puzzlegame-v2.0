@@ -5,8 +5,11 @@ package gamejam.entity {
 	import flash.geom.Vector3D;
 	import flash.ui.Keyboard;
 	import gamejam.world.World;
+	import flash.events.Event;
 	
 	public class EntityPlayer extends Entity {
+		public static const PULLLEVER:String = "pulllever";
+		
 		private static const DEFAULT_SPEED:int = 3;
 		private static const DEFAULT_JUMP_FORCE:int = 15;
 		private static const HIGH_JUMP_FORCE:int = 20;
@@ -40,7 +43,7 @@ package gamejam.entity {
 					_velocity.x = -1;
 					break;
 				case Keyboard.S:
-					// TODO: action();
+					pullLever();
 					break;
 				case Keyboard.D:
 					_velocity.x = 1;
@@ -54,14 +57,15 @@ package gamejam.entity {
 				}
 			});
 		}
-		
+		private function pullLever():void 
+		{
+			dispatchEvent(new Event(PULLLEVER));
+		}
 		public override function update():void {
 			super.update();
 			
 			_movieClip.x += (_speed * _velocity.x);
 			_movieClip.y += (_jumpForce + _velocity.y - (World.GRAVITY * _gravityMultiplier));
-			
-			trace(_movieClip.x + " " + _movieClip.y);
 		}
 		
 		private function jump():void {
