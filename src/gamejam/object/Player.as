@@ -14,11 +14,10 @@ package gamejam.object {
 		private static const DEFAULT_SPEED:int = 7;
 		private static const JUMP_FORCE:int = 40;
 		
-		private var _velocity:Vector3D;
+		private var _velocityX:Number;
 		
 		private var _speed:int;
 		private var _jumpForce:int;
-		private var _gravityMultiplier:int;
 		
 		public var _onGround:Boolean;
 		
@@ -28,10 +27,8 @@ package gamejam.object {
 		public function Player(position:Point) {
 			super(new mannetje(), position);
 			
-			_velocity = new Vector3D();
-			
 			_speed = DEFAULT_SPEED;
-			_gravityMultiplier = 1;
+			_velocityX = 0;
 			
 			_onGround = false;
 			
@@ -52,16 +49,13 @@ package gamejam.object {
 			super.update();
 			
 			if(!isRotating()) {
-				if(!(_velocity.x == -1 && !_canMoveLeft) || !(_velocity.x == 1 && !_canMoveRight))
-					_movieClip.x += (_speed * _velocity.x);
-
-				_movieClip.y += (_jumpForce + _velocity.y + (Level.GRAVITY * _gravityMultiplier));
+				if(!(_velocityX == -1 && !_canMoveLeft) || !(_velocityX == 1 && !_canMoveRight))
+					_movieClip.x += (_speed * _velocityX);
+		
+				_movieClip.y += _jumpForce + Level.GRAVITY;
 				
-				if(_onGround) {
-					_movieClip.y -= Level.GRAVITY;
-					
-					if(_velocity.x == 0)
-						_movieClip.gotoAndStop(1);
+				if(_onGround && _velocityX == 0) {
+					_movieClip.gotoAndStop(1);
 				} else {
 					_movieClip.gotoAndStop(3);
 				}
@@ -86,17 +80,19 @@ package gamejam.object {
 			var hitTop:Boolean		= levelMc.hitTestPoint(_movieClip.x, top, true);
 			var hitBottom:Boolean	= levelMc.hitTestPoint(_movieClip.x, bottom, true);
 			
-			if(hitLeft && _velocity.x == -1)
+			if(hitLeft && _velocityX == -1)
 				_canMoveLeft = false;
 			
-			if(hitRight && _velocity.x == 1)
+			if(hitRight && _velocityX == 1)
 				_canMoveRight = false;
 			
 			if(hitTop)
 				_jumpForce = 0;
 			
-			if(hitBottom)
+			if(hitBottom) {
 				_onGround = true;
+				_movieClip.y -= Level.GRAVITY;
+			}
 		}
 		
 		private function onKeyDown(e:KeyboardEvent):void {
@@ -106,7 +102,7 @@ package gamejam.object {
 				_movieClip.gotoAndStop(3);
 				break;
 			case Keyboard.A:
-				_velocity.x = -1;
+				_velocityX = -1;
 				_movieClip.gotoAndStop(2);
 				_movieClip.scaleX = 1;
 				break;
@@ -114,7 +110,7 @@ package gamejam.object {
 				pullLever();
 				break;
 			case Keyboard.D:
-				_velocity.x = 1;
+				_velocityX = 1;
 				_movieClip.gotoAndStop(2);
 				_movieClip.scaleX = -1;
 				break;
@@ -122,11 +118,11 @@ package gamejam.object {
 		}
 		
 		private function onKeyUp(e:KeyboardEvent):void {
-			var keyA:Boolean = (_velocity.x < 0 && e.keyCode == Keyboard.A);
-			var keyD:Boolean = (_velocity.x > 0 && e.keyCode == Keyboard.D);
+			var keyA:Boolean = (_velocityX < 0 && e.keyCode == Keyboard.A);
+			var keyD:Boolean = (_velocityX > 0 && e.keyCode == Keyboard.D);
 			
 			if(keyA || keyD) {
-				_velocity.x = 0;
+				_velocityX = 0;
 				_movieClip.gotoAndStop(1);
 			}
 		}
