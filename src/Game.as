@@ -1,6 +1,7 @@
 package  
 {
 	import flash.display.Sprite;
+	import gamejam.entity.EntityPlayer;
 	import org.flashdevelop.utils.TraceLevel;
 	/**
 	 * ...
@@ -9,7 +10,7 @@ package
 	public class Game extends Sprite
 	{
 		//game setup
-		private var _player:Player;
+		private var _player:EntityPlayer;
 		private var _background:Background;
 		private var _level:Level;
 		private var _lever:enemy;
@@ -26,7 +27,7 @@ package
 		
 		public function Game() 
 		{
-			_player = new Player();
+			_player = new EntityPlayer();
 			_background = new Background();
 			_level = new Level();
 			_lever = new enemy();
