@@ -40,6 +40,8 @@ package gamejam {
 			_level._movieClip.x = 400;
 			_level._movieClip.y = 400;
 			Main.instance.addEventListener(Event.ENTER_FRAME, update);
+			_popupMenu.addEventListener(PopupMenu.RESETLEVEL, resetLevel);
+			_popupMenu.addEventListener(PopupMenu.NEXTLEVEL, nextLevel);
 		}
 		
 		private function collisionChecker():void {
@@ -84,6 +86,12 @@ package gamejam {
 			_level.update();
 			
 			collisionChecker()
+		}
+		private function resetLevel() {
+			// TO DO: reset level
+		}
+		private function nextLevel() {
+			// TO DO: next level
 		}
 	}
 }

@@ -9,8 +9,10 @@ package gamejam.object {
 		
 		private var _rotator:Rotator;
 		
+		private var _rotateCodeCorrect:Boolean;
+		
 		private var _rotationStart:int;
-		private var _rotateDirection:int;
+		protected var _rotateDirection:int;
 		
 		private var _rotating:Boolean;
 		
@@ -28,19 +30,15 @@ package gamejam.object {
 		}
 		
 		public function update():void {
-			if(_rotateDirection == 0) {
+			if(!_rotateCodeCorrect) {
 				checkForCollision();
 			} else {
 				handleSceneRotation();
 			}
 		}
 		
-		public function rotate(direction:int):void {
-			_rotateDirection = direction;
-		}
-		
-		private function checkForCollision():void {
-			// TODO
+		public function rotate():void {
+			_rotateCodeCorrect = true;
 		}
 		
 		private function handleSceneRotation():void {
@@ -53,7 +51,8 @@ package gamejam.object {
 			if(_movieClip.rotation >= (_movieClip.rotation + _rotationStart)) {
 				_movieClip.rotation = (_movieClip.rotation + _rotationStart );
 				_rotating = false;
-				_rotateDirection = 0;
+				//_rotateDirection = 0;
+				_rotateCodeCorrect = false;
 			}
 		}
 		
