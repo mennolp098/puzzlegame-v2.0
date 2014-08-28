@@ -7,7 +7,7 @@ package gamejam.world {
 		public function Background() {
 			_backGround = new back1();
 			
-			Main.instance.addChild(_backGround);
+			Main.instance.addChildAt(_backGround, Main.instance.numChildren - 1);
 		}
 	}
 }

@@ -4,10 +4,8 @@ package gamejam.utils {
 	import flash.utils.Timer;
 	
 	public class Rotator {
-		public static const STAGE_CENTER:Point = new Point(Main.instance.stage.stageWidth / 2, Main.instance.stage.stageHeight / 2);
-		
-		public static const DIRECTION_LEFT:int = -1;
-		public static const DIRECTION_RIGHT:int = 1;
+		public static const DIRECTION_LEFT:int = 1;
+		public static const DIRECTION_RIGHT:int = -1;
 		
 		private static const DELAY:int = 10;
 		
@@ -22,6 +20,8 @@ package gamejam.utils {
 		
 		private var _direction:int;
 		
+		private var _complete:Boolean;
+		
 		public function Rotator(position:Point, radius:Number, degrees:Number, direction:int) {
 			this._oldPosition = position;
 			this._radius = radius;
@@ -31,19 +31,28 @@ package gamejam.utils {
 			_newPosition = position;
 			
 			_timer = new Timer(DELAY, 90);
-			_timer.start();
 			
 			_timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
 				_degrees = _degrees + 1 * _direction;
 				_radians = _degrees * Math.PI / 180;
 				
-				_newPosition.x = (Math.sin(_radians) * _radius) + STAGE_CENTER.x;
-				_newPosition.y = (Math.cos(_radians) * _radius) + STAGE_CENTER.y;
+				_newPosition.x = (Math.sin(_radians) * _radius) + Main.stageCenter.x;
+				_newPosition.y = (Math.cos(_radians) * _radius) + Main.stageCenter.y;
 			});
+			
+			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent):void {
+				_complete = true;
+			});
+			
+			_timer.start();
 		}
 		
 		public function getNewPosition():Point {
 			return _newPosition;
+		}
+		
+		public function isComplete():Boolean {
+			return _complete;
 		}
 	}
 }

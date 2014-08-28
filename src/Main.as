@@ -1,16 +1,13 @@
 package {
 	import flash.display.Sprite;
-	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import gamejam.Game;
-	/**
-	 * ...
-	 * @author Menno Jongejan
-	 */
-	public class Main extends Sprite 
-	{
+	
+	public class Main extends Sprite {
+		public static var stageCenter:Point;
+		
 		public static var instance:Main;
-		private var _game:Game;
 		
 		public function Main():void {
 			if(stage) {
@@ -23,9 +20,10 @@ package {
 		private function init(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			stageCenter = new Point(stage.stageWidth / 2, stage.stageHeight / 2)
 			instance = this;
 			
-			_game = new Game();
+			new Game();
 		}	
 	}
 }
