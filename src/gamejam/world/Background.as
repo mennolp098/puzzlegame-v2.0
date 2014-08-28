@@ -10,7 +10,7 @@ package  gamejam.world
 		private var _background:MovieClip;
 		public function Background() 
 		{
-			_background = new back1;
+			_background = new back1();
 		}
 		
 	}

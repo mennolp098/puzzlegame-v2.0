@@ -1,6 +1,7 @@
 package gamejam
 {
 	import flash.display.Sprite;
+	import gamejam.entity.EntityPlayer;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 	import flash.events.Event;
@@ -13,7 +14,7 @@ package gamejam
 	 * ...
 	 * @author Menno Jongejan
 	 */
-	public class Game extends Sprite
+	public class Game
 	{
 		//game setup
 		private var _player:EntityPlayer;
@@ -34,17 +35,17 @@ package gamejam
 		
 		public function Game() 
 		{
-			_player = new EntityPlayer();
+			_player = new EntityPlayer(new Point(0, 0));
 			_background = new Background();
 			_level = new Level();
 			_lever = new enemy();
 			
-			addChild(_player);
-			addChild(_background);
-			addChild(_level);
-			addChild(_lever);
+			Main.instance.addChild(_player);
+			Main.instance.addChild(_background);
+			Main.instance.addChild(_level);
+			Main.instance.addChild(_lever);
 			
-			addEventListener(Event.ENTER_FRAME, loop);
+			Main.instance.addEventListener(Event.ENTER_FRAME, loop);
 		}
 		private function loop(e:Event):void
 		{	
@@ -52,7 +53,7 @@ package gamejam
 			_firstTime = true;
 			_myIndetifier = new Timer(10, 90);
 			_myIndetifier.addEventListener(TimerEvent.TIMER, levelRotation);
-			if (_player.platformRotate) {
+			/*if (_player.platformRotate) {
 				_player.platformRotate = false;
 				_player.onCollision = false;
 				_myIndetifier.start();
@@ -62,7 +63,7 @@ package gamejam
 				_player.onCollision = true;
 				_firstTime = true;
 				_myIndetifier.reset();
-			}
+			}*/
 		}
 		private function leverPulling():void
 			{
