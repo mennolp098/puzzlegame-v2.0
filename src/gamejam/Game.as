@@ -79,7 +79,7 @@ package gamejam
 		}
 		private function collisionChecker():void 
 		{
-			while (_platform.hitTestPoint(_player._movieClip.x, _player._movieClip.y - _player._movieClip.height/2)) 
+			if (_platform.hitTestPoint(_player._movieClip.x, _player._movieClip.y - _player._movieClip.height/2)) 
 			{
 				_player._movieClip.y++;
 				_player._onGround = true;
