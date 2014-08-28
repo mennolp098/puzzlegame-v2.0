@@ -10,8 +10,7 @@ package
 		private var _background:MovieClip;
 		public function Background() 
 		{
-			_background = new MovieClip;
-			_background = background01;
+			_background = new back1;
 		}
 		
 	}

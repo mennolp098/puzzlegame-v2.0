@@ -21,7 +21,7 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			_game = new Game();
-			addChild(game);
+			addChild(_game);
 		}
 		
 	}
