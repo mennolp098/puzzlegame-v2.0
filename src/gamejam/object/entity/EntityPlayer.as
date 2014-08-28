@@ -54,7 +54,7 @@ package gamejam.object.entity {
 			});
 			
 			Main.instance.stage.addEventListener(KeyboardEvent.KEY_UP, function(e:KeyboardEvent):void {
-				if((_velocity.x < -1 && e.keyCode == Keyboard.A) || (_velocity.x > -1 && e.keyCode == Keyboard.D)) {
+				if((_velocity.x < 0 && e.keyCode == Keyboard.A) || (_velocity.x > 0 && e.keyCode == Keyboard.D)) {
 					_velocity.x = 0;
 				}
 			});
