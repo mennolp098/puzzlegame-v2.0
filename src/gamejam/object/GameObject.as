@@ -21,6 +21,7 @@ package gamejam.object {
 			_movieClip.y = position.y;
 			
 			_rotateDirection = 0;
+			_rotationStart = 0;
 			
 			Main.instance.addChild(_movieClip);
 		}

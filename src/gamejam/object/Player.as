@@ -57,8 +57,11 @@ package gamejam.object {
 
 				_movieClip.y += (_jumpForce + _velocity.y + (Level.GRAVITY * _gravityMultiplier));
 				
-				if(_onGround)
+				if(_onGround) {
 					_movieClip.y -= Level.GRAVITY;
+				} else {
+					_movieClip.gotoAndStop(3);
+				}
 				
 				if(_jumpForce < 0)
 					_jumpForce++;
@@ -97,15 +100,20 @@ package gamejam.object {
 			switch(e.keyCode) {
 			case Keyboard.W:
 				_jumpForce = _onGround ? -JUMP_FORCE : _jumpForce;
+				_movieClip.gotoAndStop(3);
 				break;
 			case Keyboard.A:
 				_velocity.x = -1;
+				_movieClip.gotoAndStop(2);
+				_movieClip.scaleX = 1;
 				break;
 			case Keyboard.S:
 				pullLever();
 				break;
 			case Keyboard.D:
 				_velocity.x = 1;
+				_movieClip.gotoAndStop(2);
+				_movieClip.scaleX = -1;
 				break;
 			}
 		}
@@ -114,8 +122,10 @@ package gamejam.object {
 			var keyA:Boolean = (_velocity.x < 0 && e.keyCode == Keyboard.A);
 			var keyD:Boolean = (_velocity.x > 0 && e.keyCode == Keyboard.D);
 			
-			if(keyA || keyD)
+			if(keyA || keyD) {
 				_velocity.x = 0;
+				_movieClip.gotoAndStop(1);
+			}
 		}
 	}
 }
