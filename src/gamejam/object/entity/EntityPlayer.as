@@ -1,5 +1,4 @@
 package gamejam.object.entity {
-	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
@@ -31,9 +30,11 @@ package gamejam.object.entity {
 			_speed = DEFAULT_SPEED;
 			_gravityMultiplier = 1;
 			
-			_movieClip.gotoAndStop(1);
 			_onGround = false;
 			_highJump = false;
+			
+			_movieClip.gotoAndStop(1);
+			
 			Main.instance.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				switch(e.keyCode) {
 				case Keyboard.W:
@@ -58,16 +59,28 @@ package gamejam.object.entity {
 				}
 			});
 		}
-		private function pullLever():void 
-		{
-			dispatchEvent(new Event(PULLLEVER));
+		
+		private function pullLever():void {
+			Main.instance.dispatchEvent(new Event(PULLLEVER));
 		}
+		
 		public override function update():void {
 			super.update();
 			
+			if(!isRotating()) {
+				_movieClip.x += (_speed * _velocity.x);
+				_movieClip.y += (_jumpForce + _velocity.y + (World.GRAVITY * _gravityMultiplier));
+				
+				//trace(_movieClip.x + " " + _movieClip.y);
+			}
+		}
+		
+		private function jump():void {
 			_movieClip.x += (_speed * _velocity.x);
 			_movieClip.y += (_jumpForce*-1 + _velocity.y + (World.GRAVITY * _gravityMultiplier));
-			if (_jumpForce > 0) _jumpForce--;
+			
+			if(_jumpForce > 0)
+				_jumpForce--;
 		}
 	}
 }
