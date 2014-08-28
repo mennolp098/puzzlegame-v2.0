@@ -1,13 +1,13 @@
 package gamejam
 {
 	import flash.display.Sprite;
-	import gamejam.entity.EntityPlayer;
+	import gamejam.object.entity.EntityPlayer;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 	import flash.events.Event;
-	import gamejam.entity.EntityPlayer;
+	import gamejam.object.entity.EntityPlayer;
+	import gamejam.object.platform.Platform;
 	import gamejam.world.Background;
-	import gamejam.world.Level;
 	import org.flashdevelop.utils.TraceLevel;
 	import flash.geom.Point;
 	/**
@@ -19,7 +19,7 @@ package gamejam
 		//game setup
 		private var _player:EntityPlayer;
 		private var _background:Background;
-		private var _level:Level;
+		private var _platform:Platform;
 		private var _lever:enemy;
 		
 		//vars for rotation
@@ -35,21 +35,23 @@ package gamejam
 		
 		public function Game() 
 		{
-			_player = new EntityPlayer(new Point(0, 0));
+			_player = new EntityPlayer(new Point(100, 100));
 			_background = new Background();
-			_level = new Level();
+			_platform = new Platform();
 			_lever = new enemy();
 			
-			Main.instance.addChild(_player);
 			Main.instance.addChild(_background);
-			Main.instance.addChild(_level);
+			Main.instance.addChild(_platform);
 			Main.instance.addChild(_lever);
 			
+			_platform.x = 400;
+			_platform.y = 400;
 			Main.instance.addEventListener(Event.ENTER_FRAME, loop);
 		}
 		private function loop(e:Event):void
 		{	
 			_player.update();
+			collisionChecker();
 			_firstTime = true;
 			_myIndetifier = new Timer(10, 90);
 			_myIndetifier.addEventListener(TimerEvent.TIMER, levelRotation);
@@ -66,15 +68,34 @@ package gamejam
 			}*/
 		}
 		private function leverPulling():void
-			{
-				if(_rotateVal == 1){
-					_rotateVal = -1;
-				}
-				else
-				{
-					_rotateVal = 1;
-				}
+		{
+			if(_rotateVal == 1){
+				_rotateVal = -1;
 			}
+			else
+			{
+				_rotateVal = 1;
+			}
+		}
+		private function collisionChecker():void 
+		{
+			while (_platform.hitTestPoint(_player._movieClip.x, _player._movieClip.y - _player._movieClip.height/2)) 
+			{
+				_player._movieClip.y++;
+				_player._onGround = true;
+				trace("hitting");
+				trace(_player._movieClip.x);
+				trace(_player._movieClip.y);
+			}
+			if (_platform.hitTestPoint(_player._movieClip.x, _player._movieClip.y + _player._movieClip.height / 2)) 
+			{
+				//TO DO: Jumpforce = 0;
+			}
+			if (!_platform.hitTestObject(_player._movieClip))
+			{
+				_player._onGround = false;
+			}
+		}
 		public function levelRotation(e:TimerEvent):void 
 		{
 			if (_firstTime) {
@@ -95,7 +116,7 @@ package gamejam
 			_player.x = new_x + _pos_x;
 			_player.y = new_y + _pos_y;
 			
-			_level.rotation += 1 * _rotateVal;
+			//_level.rotation += 1 * _rotateVal;
 			
 			_degreesCounter++;
 		}

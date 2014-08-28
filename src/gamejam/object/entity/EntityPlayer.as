@@ -1,4 +1,4 @@
-package gamejam.entity {
+package gamejam.object.entity {
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -20,7 +20,7 @@ package gamejam.entity {
 		private var _jumpForce:int;
 		private var _gravityMultiplier:int;
 		
-		private var _onGround:Boolean;
+		public var _onGround:Boolean;
 		private var _highJump:Boolean;
 		
 		public function EntityPlayer(position:Point) {
@@ -31,13 +31,14 @@ package gamejam.entity {
 			_speed = DEFAULT_SPEED;
 			_gravityMultiplier = 1;
 			
+			_movieClip.gotoAndStop(1);
 			_onGround = false;
 			_highJump = false;
-			
-			Main.instance.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
+			Main.instance.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				switch(e.keyCode) {
 				case Keyboard.W:
-					jump();
+					if (_onGround)
+						_jumpForce = _highJump ? HIGH_JUMP_FORCE : DEFAULT_JUMP_FORCE;
 					break;
 				case Keyboard.A:
 					_velocity.x = -1;
@@ -51,7 +52,7 @@ package gamejam.entity {
 				}
 			});
 			
-			Main.instance.addEventListener(KeyboardEvent.KEY_UP, function(e:KeyboardEvent):void {
+			Main.instance.stage.addEventListener(KeyboardEvent.KEY_UP, function(e:KeyboardEvent):void {
 				if((_velocity.x < -1 && e.keyCode == Keyboard.A) || (_velocity.x > -1 && e.keyCode == Keyboard.D)) {
 					_velocity.x = 0;
 				}
@@ -65,11 +66,8 @@ package gamejam.entity {
 			super.update();
 			
 			_movieClip.x += (_speed * _velocity.x);
-			_movieClip.y += (_jumpForce + _velocity.y - (World.GRAVITY * _gravityMultiplier));
-		}
-		
-		private function jump():void {
-			
+			_movieClip.y += (_jumpForce*-1 + _velocity.y + (World.GRAVITY * _gravityMultiplier));
+			if (_jumpForce > 0) _jumpForce--;
 		}
 	}
 }
