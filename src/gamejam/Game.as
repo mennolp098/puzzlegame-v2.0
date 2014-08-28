@@ -1,4 +1,5 @@
 package gamejam {
+	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
 	import gamejam.object.entity.Entity;
@@ -26,30 +27,39 @@ package gamejam {
 			
 			Main.instance.addEventListener(Event.ENTER_FRAME, update);
 		}
-		private function collisionChecker():void 
-		{
-			if (_platform.hitTestPoint(_player._movieClip.x, _player._movieClip.y - _player._movieClip.height/2)) 
-			{
-				_player._movieClip.y++;
-				_player._onGround = true;
-				trace("hitting");
-				trace(_player._movieClip.x);
-				trace(_player._movieClip.y);
-			}
-			if (_platform.hitTestPoint(_player._movieClip.x, _player._movieClip.y + _player._movieClip.height / 2)) 
-			{
-				//TO DO: Jumpforce = 0;
-			}
-			if (!_platform.hitTestObject(_player._movieClip))
-			{
-				_player._onGround = false;
+		
+		private function collisionChecker():void {
+			var player:EntityPlayer = _entities[0] as EntityPlayer;
+			
+			var playerMc:MovieClip = player._movieClip;
+			var levelMc:MovieClip = _level._movieClip;
+			
+			if(levelMc.hitTestObject(playerMc)) {
+				//trace("Hit test object");
+				var playerCenterX:Number = (playerMc.x + (playerMc.width / 2));
+			
+				var checkTop:Boolean = levelMc.hitTestPoint(playerCenterX, (playerMc.y - playerMc.height), true);
+				var checkBottom:Boolean = levelMc.hitTestPoint(playerCenterX, playerMc.y, true);
+				
+				trace(checkBottom, checkTop);
+				if(checkBottom) {
+					playerMc.y -= 2;
+					player._onGround = true;
+				} else if(checkTop) {
+					// TODO: Jumpforce = 0;
+				}
+			} else {
+				player._onGround = false;
 			}
 		}
 		
 		private function update(evt:Event):void {
 			for each(var e:Entity in _entities)
 				e.update();
+				
 			_level.update();
+			
+			collisionChecker()
 		}
 	}
 }

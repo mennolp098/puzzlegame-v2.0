@@ -38,8 +38,7 @@ package gamejam.object.entity {
 			Main.instance.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				switch(e.keyCode) {
 				case Keyboard.W:
-					if (_onGround)
-						_jumpForce = _highJump ? HIGH_JUMP_FORCE : DEFAULT_JUMP_FORCE;
+					jump();
 					break;
 				case Keyboard.A:
 					_velocity.x = -1;
@@ -70,17 +69,19 @@ package gamejam.object.entity {
 			if(!isRotating()) {
 				_movieClip.x += (_speed * _velocity.x);
 				_movieClip.y += (_jumpForce + _velocity.y + (World.GRAVITY * _gravityMultiplier));
-				
-				//trace(_movieClip.x + " " + _movieClip.y);
 			}
 		}
 		
 		private function jump():void {
-			_movieClip.x += (_speed * _velocity.x);
-			_movieClip.y += (_jumpForce*-1 + _velocity.y + (World.GRAVITY * _gravityMultiplier));
-			
-			if(_jumpForce > 0)
-				_jumpForce--;
+			if(_onGround) {
+				_movieClip.x += (_speed * _velocity.x);
+				_movieClip.y += (_jumpForce + _velocity.y + (World.GRAVITY * _gravityMultiplier));
+				
+				trace((_jumpForce + _velocity.y + (World.GRAVITY * _gravityMultiplier)));
+				
+				if(_jumpForce > 0)
+					_jumpForce--;
+			}
 		}
 	}
 }
