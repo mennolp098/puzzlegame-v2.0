@@ -16,6 +16,7 @@ package gamejam.Menus
 		private var _startButton:StartButton;
 		public static var STARTGAME:String = "YOLOSWAG";
 		//private var _muteButton:MuteButton;
+		private var _backGround:menubackground;
 		
 		
 		public function GameMenu() 
@@ -27,9 +28,14 @@ package gamejam.Menus
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			_startButton = new StartButton;
-			_startButton.x = 200;
-			_startButton.y = 200;
+			_backGround = new menubackground();
+			_backGround.x = 360;
+			_backGround.y = 360;
+			addChild(_backGround);
+			
+			_startButton = new StartButton();
+			_startButton.x = 360;
+			_startButton.y = 160;
 			addChild(_startButton);
 			
 			/*_muteButton = new MuteButton;
@@ -45,8 +51,9 @@ package gamejam.Menus
 		}
 		public function mouseClick (e:MouseEvent):void
 		{
-			if (e.target == _startButton)
-			Main.instance.dispatchEvent(new Event(STARTGAME));
+			if (e.target == _startButton) {
+				Main.instance.dispatchEvent(new Event(STARTGAME));
+			}
 		}
 	}
 
