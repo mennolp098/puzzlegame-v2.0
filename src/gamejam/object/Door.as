@@ -3,7 +3,7 @@ package gamejam.object {
 	
 	public class Door extends GameObject {
 		public function Door() {
-			super(new spikes(), new Point(0, 0));
+			super(new spikes01(), new Point(0, 0));
 		}
 	}
 }
