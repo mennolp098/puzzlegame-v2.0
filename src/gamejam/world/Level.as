@@ -5,6 +5,7 @@ package gamejam.world {
 	import gamejam.object.Door;
 	import gamejam.object.Lever;
 	import gamejam.object.Player;
+	import gamejam.RotationManager;
 	import gamejam.object.Spike;
 	
 	public class Level {
@@ -58,10 +59,17 @@ package gamejam.world {
 				
 			_timer = new Timer(10, 90);
 			
+			_player.rotate(direction);
 			_lever.rotate(direction);
+			_spikes.rotate(direction);
+			_door.rotate(direction);
 			
 			_timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
 				_level.rotation -= direction;
+			});
+			
+			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent):void {
+				RotationManager.generate();
 			});
 			
 			_timer.start();
