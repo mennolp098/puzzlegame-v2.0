@@ -23,7 +23,7 @@ package gamejam.world {
 			switch(levelId) {
 			case 1:
 				_level = new level01();
-				_lever = new Lever(150, 476);
+				_lever = new Lever(200, 625);
 				_spikes = new spikes01();
 				break;
 			default:

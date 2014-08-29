@@ -25,8 +25,8 @@ package gamejam.object {
 				}
 			});
 			
-			_movieClip.scaleX = 0.25;
-			_movieClip.scaleY = 0.25;
+			_movieClip.scaleX = 0.2;
+			_movieClip.scaleY = 0.2;
 			_movieClip.gotoAndStop(1);
 		}
 		
