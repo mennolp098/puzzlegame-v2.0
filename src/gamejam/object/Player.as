@@ -94,6 +94,7 @@ package gamejam.object {
 			
 			if (hitSpike){
 				//TO DO: Death();
+				trace("HIJADISJHF");
 			}
 				
 			if(hitBottom) {

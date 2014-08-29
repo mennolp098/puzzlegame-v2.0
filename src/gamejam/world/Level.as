@@ -49,7 +49,7 @@ package gamejam.world {
 			return _level;
 		}
 		public static function getSpikes():MovieClip {
-			return _spike;
+			return _spikes;
 		}
 	}
 }
