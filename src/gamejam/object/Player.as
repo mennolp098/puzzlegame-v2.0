@@ -50,9 +50,9 @@ package gamejam.object {
 			super.update();
 			
 			if(!isRotating()) {
-				if(!(_velocityX == -1 && !_canMoveLeft) || !(_velocityX == 1 && !_canMoveRight))
+				if(!(_velocityX == -1 && !_canMoveLeft) && !(_velocityX == 1 && !_canMoveRight))
 					_movieClip.x += (_speed * _velocityX);
-		
+				
 				_movieClip.y += _jumpForce + Level.GRAVITY;
 				
 				if(_onGround && _velocityX == 0) {
@@ -76,21 +76,20 @@ package gamejam.object {
 			var top:int 	= _movieClip.y - (_movieClip.height / 2);
 			var bottom:int	= _movieClip.y + (_movieClip.height / 2);
 			
-			var hitLeft:Boolean		= levelMc.hitTestPoint(left, _movieClip.y, true);
-			var hitRight:Boolean	= levelMc.hitTestPoint(right, _movieClip.y, true);
-			var hitTop:Boolean		= levelMc.hitTestPoint(_movieClip.x, top, true);
-			var hitBottom:Boolean	= levelMc.hitTestPoint(_movieClip.x, bottom, true);
+			var hitTopLeft:Boolean		= levelMc.hitTestPoint(left, top, true);
+			var hitTopRight:Boolean		= levelMc.hitTestPoint(right, top, true);
+			var hitBottomLeft:Boolean	= levelMc.hitTestPoint(left, bottom, true);
+			var hitBottomRight:Boolean	= levelMc.hitTestPoint(right, bottom, true);;
 			
-			if(hitLeft && _velocityX == -1)
-				_canMoveLeft = false;
+			_canMoveLeft = !hitTopLeft || (!hitBottomLeft && !hitBottomRight);
+			_canMoveRight = !hitTopRight || (!hitBottomRight && !hitBottomLeft);
 			
-			if(hitRight && _velocityX == 1)
-				_canMoveRight = false;
+			//trace(hitTopLeft + " " + hitBottomLeft + " " + hitTopRight + " " + hitBottomRight + " " + (!hitTopLeft || (!hitBottomLeft && !hitBottomRight)) + " " + (!hitTopRight || (!hitBottomRight && !hitBottomLeft)));
 			
-			if(hitTop)
+			if(hitTopLeft || hitTopRight)
 				_jumpForce = 0;
 			
-			if(hitBottom) {
+			if(hitBottomLeft || hitBottomRight) {
 				_onGround = true;
 				_movieClip.y -= Level.GRAVITY;
 			} else {
@@ -144,8 +143,10 @@ package gamejam.object {
 		
 		private function pullLever():void {
 			if(RotationManager.complete()) {
-				GameObject.rotate(RotationManager.getRotationDirection());
-				RotationManager.generate();
+				if(Level.getLever().hitTestObject(_movieClip)) {
+					rotate(RotationManager.getRotationDirection());
+					RotationManager.generate();
+				}
 			}
 		}
 	}

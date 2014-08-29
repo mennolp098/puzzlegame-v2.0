@@ -2,11 +2,13 @@ package gamejam.world {
 	import flash.display.MovieClip;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import gamejam.object.Lever;
 	
 	public class Level {
 		public static const GRAVITY:int = 15;
 		
 		private static var _level:MovieClip;
+		private static var _lever:Lever;
 		
 		private static var _timer:Timer;
 		
@@ -20,6 +22,7 @@ package gamejam.world {
 			switch(levelId) {
 			case 1:
 				_level = new level01();
+				_lever = new Lever(150, 500);
 				break;
 			default:
 				trace("Level " + levelId + " doesn't exist");
@@ -32,8 +35,17 @@ package gamejam.world {
 			Main.instance.addChild(_level);
 		}
 		
+		public static function update():void {
+			_lever.update();
+		}
+		
 		public static function rotate(direction:int):void {
+			if(_timer != null && _timer.running)
+				return;
+				
 			_timer = new Timer(10, 90);
+			
+			_lever.rotate(direction);
 			
 			_timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
 				_level.rotation -= direction;
@@ -44,6 +56,10 @@ package gamejam.world {
 		
 		public static function getLevel():MovieClip {
 			return _level;
+		}
+		
+		public static function getLever():MovieClip {
+			return _lever._movieClip;
 		}
 	}
 }
