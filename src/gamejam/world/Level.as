@@ -8,8 +8,8 @@ package gamejam.world {
 		public static const GRAVITY:int = 15;
 		
 		private static var _level:MovieClip;
-		private static var _lever:Lever;
 		private static var _spikes:MovieClip;
+		private static var _lever:Lever;
 		
 		private static var _timer:Timer;
 		
