@@ -84,8 +84,6 @@ package gamejam.object {
 			_canMoveLeft = !hitTopLeft || (!hitBottomLeft && !hitBottomRight);
 			_canMoveRight = !hitTopRight || (!hitBottomRight && !hitBottomLeft);
 			
-			//trace(hitTopLeft + " " + hitBottomLeft + " " + hitTopRight + " " + hitBottomRight + " " + (!hitTopLeft || (!hitBottomLeft && !hitBottomRight)) + " " + (!hitTopRight || (!hitBottomRight && !hitBottomLeft)));
-			
 			if(hitTopLeft || hitTopRight)
 				_jumpForce = 0;
 			
