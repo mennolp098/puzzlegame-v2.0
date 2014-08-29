@@ -81,6 +81,8 @@ package gamejam.object {
 			var hitTop:Boolean		= levelMc.hitTestPoint(_movieClip.x, top, true);
 			var hitBottom:Boolean	= levelMc.hitTestPoint(_movieClip.x, bottom, true);
 			
+			var hitSpike:Boolean	= _movieClip.hitTestObject(Level.getSpikes());
+			
 			if(hitLeft && _velocityX == -1)
 				_canMoveLeft = false;
 			
@@ -90,6 +92,10 @@ package gamejam.object {
 			if(hitTop)
 				_jumpForce = 0;
 			
+			if (hitSpike){
+				//TO DO: Death();
+			}
+				
 			if(hitBottom) {
 				_onGround = true;
 				_movieClip.y -= Level.GRAVITY;

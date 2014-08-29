@@ -7,6 +7,7 @@ package gamejam.world {
 		public static const GRAVITY:int = 15;
 		
 		private static var _level:MovieClip;
+		private static var _spikes:MovieClip;
 		
 		private static var _timer:Timer;
 		
@@ -20,6 +21,7 @@ package gamejam.world {
 			switch(levelId) {
 			case 1:
 				_level = new level01();
+				_spikes = new spikes01();
 				break;
 			default:
 				trace("Level " + levelId + " doesn't exist");
@@ -30,6 +32,7 @@ package gamejam.world {
 			_level.y = Main.stageCenter.y;
 			
 			Main.instance.addChild(_level);
+			Main.instance.addChild(_spikes);
 		}
 		
 		public static function rotate(direction:int):void {
@@ -44,6 +47,9 @@ package gamejam.world {
 		
 		public static function getLevel():MovieClip {
 			return _level;
+		}
+		public static function getSpikes():MovieClip {
+			return _spike;
 		}
 	}
 }
