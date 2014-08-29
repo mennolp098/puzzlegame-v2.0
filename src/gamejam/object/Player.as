@@ -79,7 +79,9 @@ package gamejam.object {
 			var hitTopLeft:Boolean		= levelMc.hitTestPoint(left, top, true);
 			var hitTopRight:Boolean		= levelMc.hitTestPoint(right, top, true);
 			var hitBottomLeft:Boolean	= levelMc.hitTestPoint(left, bottom, true);
-			var hitBottomRight:Boolean	= levelMc.hitTestPoint(right, bottom, true);;
+			var hitBottomRight:Boolean	= levelMc.hitTestPoint(right, bottom, true);
+			
+			var hitSpike:Boolean		= _movieClip.hitTestObject(Level.getSpikes());
 			
 			_canMoveLeft = !hitTopLeft || (!hitBottomLeft && !hitBottomRight);
 			_canMoveRight = !hitTopRight || (!hitBottomRight && !hitBottomLeft);
@@ -87,6 +89,11 @@ package gamejam.object {
 			if(hitTopLeft || hitTopRight)
 				_jumpForce = 0;
 			
+			if (hitSpike){
+				//TO DO: Death();
+				trace("Pls die");
+			}
+				
 			if(hitBottomLeft || hitBottomRight) {
 				_onGround = true;
 				_movieClip.y -= Level.GRAVITY;

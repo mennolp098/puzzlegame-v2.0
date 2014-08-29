@@ -9,6 +9,7 @@ package gamejam.world {
 		
 		private static var _level:MovieClip;
 		private static var _lever:Lever;
+		private static var _spikes:MovieClip;
 		
 		private static var _timer:Timer;
 		
@@ -22,17 +23,16 @@ package gamejam.world {
 			switch(levelId) {
 			case 1:
 				_level = new level01();
-				_lever = new Lever(150, 500);
+				_lever = new Lever(150, 476);
+				_spikes = new spikes01();
 				break;
 			default:
 				trace("Level " + levelId + " doesn't exist");
 				return;
 			}
 			
-			_level.x = Main.stageCenter.x;
-			_level.y = Main.stageCenter.y;
-			
 			Main.instance.addChild(_level);
+			Main.instance.addChild(_spikes);
 		}
 		
 		public static function update():void {
@@ -60,6 +60,10 @@ package gamejam.world {
 		
 		public static function getLever():MovieClip {
 			return _lever._movieClip;
+		}
+		
+		public static function getSpikes():MovieClip {
+			return _spikes;
 		}
 	}
 }
