@@ -17,7 +17,7 @@ package gamejam {
 		private var _popupMenu:PopupMenu;
 		
 		public function Game() {
-			_player = new Player(new Point(300, 200));
+			_player = new Player(new Point(150, 200));
 			_background = new Background();
 			
 			Level.create(1);
