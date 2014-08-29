@@ -35,7 +35,6 @@ package gamejam {
 			
 			Main.instance.addChild(_popupMenu);
 		}
-		
 		private function popupMenu(won:Boolean):void {
 			_popupMenu.visible = true;
 			_popupMenu.popupState(won);
