@@ -2,15 +2,14 @@ package gamejam {
 	import flash.events.Event;
 	import flash.geom.Point;
 	import gamejam.object.Door;
+	import gamejam.object.Lever;
 	import gamejam.object.Player;
 	import gamejam.world.Background;
 	import gamejam.world.Level;
 	import gamejam.object.Spikes;
 	
-	public class Game {
+	public class Game {		
 		private var _player:Player;
-		private var _level:Level;
-		private var _spikes:Spikes;
 		
 		private var _background:Background;
 		private var _door:Door;
@@ -23,7 +22,6 @@ package gamejam {
 			Level.create(1);
 			RotationManager.generate();
 			
-			_spikes = new Spikes();
 			_door = new Door();
 			_popupMenu = new PopupMenu();
 			
@@ -50,12 +48,16 @@ package gamejam {
 		
 		private function update(evt:Event):void {
 			_player.update();
+			
+			Level.update();
 		}
+		
 		private function resetLevel():void {
-			// TO DO: reset level
+			// TODO: reset level
 		}
+		
 		private function nextLevel():void {
-			// TO DO: next level
+			// TODO: next level
 		}
 	}
 }

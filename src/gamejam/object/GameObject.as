@@ -8,11 +8,9 @@ package gamejam.object {
 	public class GameObject {
 		public var _movieClip:MovieClip;
 		
-		protected static var _rotateDirection:int = 0;
+		protected var _rotateDirection:int;
 		
 		private var _rotator:Rotator;
-		
-		private var _rotationStart:int;
 		
 		private var _rotating:Boolean;
 		
@@ -35,7 +33,7 @@ package gamejam.object {
 			}
 		}
 		
-		public static function rotate(direction:int):void {
+		public function rotate(direction:int):void {
 			_rotateDirection = direction;
 		}
 		
@@ -48,7 +46,7 @@ package gamejam.object {
 			_movieClip.x = _rotator.getNewPosition().x;
 			_movieClip.y = _rotator.getNewPosition().y;
 			
-			if(_rotator.isComplete()) {
+			if (_rotator.isComplete()) {
 				_rotating = false;
 				_rotateDirection = 0;
 			}
@@ -59,7 +57,7 @@ package gamejam.object {
 			
 			var radius:Number = position.subtract(Main.stageCenter).length;
 			var angle:Number = Math.atan2(_movieClip.y - Main.stageCenter.x, _movieClip.x - Main.stageCenter.y);
-			var degrees:Number = angle * 180 / Math.PI;
+			var degrees:Number = angle - 180 / Math.PI;
 			
 			_rotator = new Rotator(new Point(_movieClip.x, _movieClip.y), radius, degrees, _rotateDirection);
 			_rotating = true;
