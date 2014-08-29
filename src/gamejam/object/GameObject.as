@@ -4,6 +4,7 @@ package gamejam.object {
 	import flash.geom.Point;
 	import gamejam.utils.Rotator;
 	import gamejam.world.Level;
+	import gamejam.RotationManager;
 	
 	public class GameObject {
 		public var _movieClip:MovieClip;
@@ -26,6 +27,11 @@ package gamejam.object {
 		}
 		
 		public function update():void {
+			if(RotationManager.complete()) {
+				_rotateDirection = RotationManager.getRotationDirection();
+				RotationManager.generate();
+			}
+			
 			if(_rotateDirection == 0) {
 				checkForCollision();
 			} else {

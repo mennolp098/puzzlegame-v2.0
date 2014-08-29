@@ -4,11 +4,11 @@ package gamejam.object {
 	import flash.utils.Timer;
 	import gamejam.utils.Rotator;
 	
-	public class Door extends GameObject {
+	public class Spike extends GameObject {
 		private var _timer:Timer;
 		
-		public function Door(x:int, y:int, rotation:Number) {
-			super(new door(), new Point(x, y));
+		public function Spike(x:int, y:int, rotation:Number) {
+			super(new spikes01(), new Point(x, y));
 			
 			_timer = new Timer(10, 90);
 			

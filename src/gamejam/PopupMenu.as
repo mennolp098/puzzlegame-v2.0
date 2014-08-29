@@ -44,7 +44,7 @@ package gamejam
 		}
 		private function onClick(e:MouseEvent):void 
 		{
-			if (e.target == _button && _button == nextlevelbutton) 
+			if (e.target == _button && _button is nextlevelbutton) 
 			{
 				dispatchEvent(new Event(NEXTLEVEL));
 			} else

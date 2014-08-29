@@ -9,7 +9,7 @@ package gamejam.object {
 	public class Lever extends GameObject {
 		private var _timer:Timer;
 		
-		public function Lever(x:int, y:int) {
+		public function Lever(x:int, y:int, rotation:Number) {
 			super(new lever(), new Point(x, y));
 			
 			_timer = new Timer(10, 90);
@@ -25,6 +25,7 @@ package gamejam.object {
 				}
 			});
 			
+			_movieClip.rotation = rotation;
 			_movieClip.scaleX = 0.2;
 			_movieClip.scaleY = 0.2;
 			_movieClip.gotoAndStop(1);
