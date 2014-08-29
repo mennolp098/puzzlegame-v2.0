@@ -3,6 +3,8 @@
 <!--Any modifications you make may be lost.-->
 <flex-config>
   <target-player>10.1</target-player>
+  <benchmark>false</benchmark>
+  <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
   <compiler>
     <define append="true">
       <name>CONFIG::debug</name>
@@ -30,15 +32,15 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>D:\programmas\xampp\htdocs\school\jaar2\gamejamm\PuzzleGame\puzzlegame-v2.0\src</path-element>
-      <path-element>D:\programmas\flash developer\Library\AS3\classes</path-element>
+      <path-element>C:\Users\Bart\School\Jaar 2\puzzlegame-v2.0\src</path-element>
+      <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>D:\programmas\xampp\htdocs\school\jaar2\gamejamm\PuzzleGame\puzzlegame-v2.0\lib\assets.swc</path-element>
+      <path-element>C:\Users\Bart\School\Jaar 2\puzzlegame-v2.0\lib\assets.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>D:\programmas\xampp\htdocs\school\jaar2\gamejamm\PuzzleGame\puzzlegame-v2.0\src\Main.as</path-element>
+    <path-element>C:\Users\Bart\School\Jaar 2\puzzlegame-v2.0\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
