@@ -11,6 +11,7 @@ package gamejam.world {
 		public static const GRAVITY:int = 15;
 		
 		private static var _level:MovieClip;
+		private static var _background:MovieClip;
 		
 		private static var _player:Player;
 		private static var _spikes:Spike;
@@ -25,11 +26,21 @@ package gamejam.world {
 		public static function create(levelId:int):void {
 			if(_level != null)
 				Main.instance.removeChild(_level);
-			
+			if(_background != null)
+				Main.instance.removeChild(_background);
 			switch(levelId) {
 			case 1:
 				_level = new level01();
+				_background = new back1();
 				_player = new Player(250, 600);
+				_lever = new Lever(117, 50, 90);
+				_spikes = new Spike(0, 0, 0);
+				_door = new Door(207, 290, 90);
+				break;
+			case 2:
+				_level = new level02();
+				_background = new back2();
+				_player = new Player(250, 500);
 				_lever = new Lever(117, 50, 90);
 				_spikes = new Spike(0, 0, 0);
 				_door = new Door(207, 290, 90);
@@ -42,6 +53,10 @@ package gamejam.world {
 			_level.x = Main.stageCenter.x
 			_level.y = Main.stageCenter.y;
 			
+			_background.x = Main.stageCenter.x
+			_background.y = Main.stageCenter.y;
+			
+			Main.instance.addChildAt(_background, 0);
 			Main.instance.addChild(_level);
 		}
 		

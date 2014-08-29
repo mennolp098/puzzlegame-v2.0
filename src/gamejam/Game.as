@@ -9,13 +9,11 @@ package gamejam {
 	import gamejam.object.Spike;
 	
 	public class Game {				
-		private var _background:Background;
 		private var _popupMenu:PopupMenu;
 		
 		public function Game() {
-			_background = new Background();
 			
-			Level.create(1);
+			Level.create(2);
 			RotationManager.generate();
 			
 			_popupMenu = new PopupMenu();

@@ -39,8 +39,8 @@ package gamejam.object {
 			_canMoveLeft = false;
 			_canMoveRight = false;
 			
-			_movieClip.scaleX = 0.5;
-			_movieClip.scaleY = 0.5;
+			_movieClip.scaleX = 0.25;
+			_movieClip.scaleY = 0.25;
 			_movieClip.gotoAndStop(1);
 			
 			Main.instance.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);			
@@ -139,7 +139,7 @@ package gamejam.object {
 		private function move(direction:int):void {
 			_velocityX = direction;
 			
-			_movieClip.scaleX = -direction / 2;
+			_movieClip.scaleX = (-direction / 2) / 2;
 			_movieClip.gotoAndStop(2);
 		}
 		
