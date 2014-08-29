@@ -1,59 +1,62 @@
 package gamejam 
 {
 	import flash.display.MovieClip;
+	import flash.display.SimpleButton;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.ui.Mouse;
 	/**
 	 * ...
 	 * @author Menno Jongejan
 	 */
 	public class PopupMenu extends MovieClip
 	{
-		private var _nextLevelButton:StartButton;
-		private var _restartLevelButton:StartButton;
-		private var _background:MenuBackground;
+		private var _button:MovieClip;
 		
 		public static const NEXTLEVEL		:	String	=	"nextlevel";
-		public static const RESTARTLEVEL    :   String  =   "restartlevel"
+		public static const RESTARTLEVEL    :   String  =   "restartlevel";
 		
-		public function PopupMenu() 
-		{
-			_nextLevelButton = new StartButton();
-			_restartLevelButton = new StartButton();
-			_background = new MenuBackground();
+		public function create(won:Boolean):void {
+			if(_button != null)
+				Main.instance.removeChild(_button);
 			
-			addChild(_nextLevelButton);
-			addChild(_background);
-			addChild(_restartLevelButton);
-			
-			_nextLevelButton.y = 40;
-			_nextLevelButton.x = 40;
-			_restartLevelButton.y = _nextLevelButton.y;
-			_restartLevelButton.x = _nextLevelButton.x;
+			switch(won) {
+			case true:
+				_button = new nextlevelbutton();
+				break;
+			case false:
+				_button = new tryagainbutton();
+				break;
+			default:
+				trace("button " + won + " is null");
+				return;
+			}
+			Main.instance.addChild(_button);
 			
 			var buttonsHolder:MovieClip = new MovieClip();
 			addChild(buttonsHolder);
-			buttonsHolder.addChild(_nextLevelButton);
-			buttonsHolder.addChild(_restartLevelButton);
+			buttonsHolder.addChild(_button);
 			buttonsHolder.addEventListener(MouseEvent.CLICK, onClick);
+			
+			_button.y = 360;
+			_button.x = 360;
 		}
 		private function onClick(e:MouseEvent):void 
 		{
-			if (e.target == _nextLevelButton) 
+			if (e.target == _button && _button == nextlevelbutton) 
 			{
 				dispatchEvent(new Event(NEXTLEVEL));
-			} else if (e.target == _restartLevelButton) 
+			} else
 			{
 				dispatchEvent(new Event(RESTARTLEVEL));
 			}
-			//TO DO: Mute button en exit
 		}
 		public function popupState(won:Boolean):void {
 			if (won) {
-				_nextLevelButton.visible = true;
+				_button = new nextlevelbutton();
 			}else {
-				_restartLevelButton.visible = true;
+				_button = new tryagainbutton();
 			}
 		}
 	}
