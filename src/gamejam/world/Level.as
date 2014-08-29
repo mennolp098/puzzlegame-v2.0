@@ -32,6 +32,8 @@ package gamejam.world {
 			}
 			
 			Main.instance.addChild(_level);
+			_level.x = 360;
+			_level.y = 360;
 			Main.instance.addChild(_spikes);
 		}
 		
