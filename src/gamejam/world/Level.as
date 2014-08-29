@@ -39,10 +39,10 @@ package gamejam.world {
 				return;
 			}
 			
+			_level.x = Main.stageCenter.x
+			_level.y = Main.stageCenter.y;
+			
 			Main.instance.addChild(_level);
-			_level.x = 360;
-			_level.y = 360;
-			Main.instance.addChild(_spikes);
 		}
 		
 		public static function update():void {
