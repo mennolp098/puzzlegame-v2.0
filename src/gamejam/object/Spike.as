@@ -29,8 +29,10 @@ package gamejam.object {
 		public override function update():void {
 			super.update();
 			
-			if(isRotating() && !_timer.running)
+			if(isRotating() && !_timer.running) {
+				_timer.reset();
 				_timer.start();
+			}
 		}
 	}
 }

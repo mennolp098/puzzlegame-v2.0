@@ -18,10 +18,14 @@ package gamejam {
 			_code = [];
 			_currentKeyIndex = 0;
 			
-			for(var i:int = 0; i < _keyCodes.length; i++) {
+			for(var i:int = 0; i < _keyCodes.length; i++)
 				_code[i] = _keyCodes[Math.floor(Math.random() * _keyCodes.length)];
-				trace(String.fromCharCode(_code[i]));
-			}
+			
+			trace(	String.fromCharCode(_code[0]),
+					String.fromCharCode(_code[1]),
+					String.fromCharCode(_code[2]),
+					String.fromCharCode(_code[3]),
+					String.fromCharCode(_code[4]));
 		}
 		
 		public static function handleKeyPress(e:KeyboardEvent):void {
