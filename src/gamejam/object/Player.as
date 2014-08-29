@@ -7,12 +7,13 @@ package gamejam.object {
 	import gamejam.object.GameObject;
 	import gamejam.world.Level;
 	import flash.display.MovieClip;
+	import gamejam.RotationManager;
 	
 	public class Player extends GameObject {
 		public static const PULLLEVER:String = "pullLever";
 		
 		private static const DEFAULT_SPEED:int = 7;
-		private static const JUMP_FORCE:int = 40;
+		private static const JUMP_FORCE:int = 32;
 		
 		private var _velocityX:Number;
 		
@@ -31,15 +32,15 @@ package gamejam.object {
 			_velocityX = 0;
 			
 			_onGround = false;
+			_canMoveLeft = false;
+			_canMoveRight = false;
 			
+			_movieClip.scaleX = 0.5;
+			_movieClip.scaleY = 0.5;
 			_movieClip.gotoAndStop(1);
 			
 			Main.instance.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);			
 			Main.instance.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
-		}
-		
-		private function pullLever():void {
-			Main.instance.dispatchEvent(new Event(PULLLEVER));
 		}
 		
 		public override function update():void {
@@ -89,7 +90,7 @@ package gamejam.object {
 			if(hitTop)
 				_jumpForce = 0;
 			
-			if(hitBottom) {
+			if(hitBottom && _jumpForce == 0) {
 				_onGround = true;
 				_movieClip.y -= Level.GRAVITY;
 			}
@@ -98,21 +99,19 @@ package gamejam.object {
 		private function onKeyDown(e:KeyboardEvent):void {
 			switch(e.keyCode) {
 			case Keyboard.W:
-				_jumpForce = _onGround ? -JUMP_FORCE : _jumpForce;
-				_movieClip.gotoAndStop(3);
+				jump();
 				break;
 			case Keyboard.A:
-				_velocityX = -1;
-				_movieClip.gotoAndStop(2);
-				_movieClip.scaleX = 1;
+				move(-1);
 				break;
 			case Keyboard.S:
 				pullLever();
 				break;
 			case Keyboard.D:
-				_velocityX = 1;
-				_movieClip.gotoAndStop(2);
-				_movieClip.scaleX = -1;
+				move(1);
+				break;
+			default:
+				RotationManager.handleKeyPress(e);
 				break;
 			}
 		}
@@ -124,6 +123,27 @@ package gamejam.object {
 			if(keyA || keyD) {
 				_velocityX = 0;
 				_movieClip.gotoAndStop(1);
+			}
+		}
+		
+		private function move(direction:int):void {
+			_velocityX = direction;
+			
+			_movieClip.scaleX = -direction / 2;
+			_movieClip.gotoAndStop(2);
+		}
+		
+		private function jump():void {
+			if(_onGround) {
+				_jumpForce = _onGround ? -JUMP_FORCE : _jumpForce;
+				_movieClip.gotoAndStop(3);
+			}
+		}
+		
+		private function pullLever():void {
+			if(RotationManager.complete()) {
+				GameObject.rotate(RotationManager.getRotationDirection());
+				RotationManager.generate();
 			}
 		}
 	}

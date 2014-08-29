@@ -19,7 +19,7 @@ package gamejam.world {
 			
 			switch(levelId) {
 			case 1:
-				_level = new platform();
+				_level = new level01();
 				break;
 			default:
 				trace("Level " + levelId + " doesn't exist");

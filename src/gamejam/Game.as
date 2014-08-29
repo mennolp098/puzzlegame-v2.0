@@ -21,6 +21,7 @@ package gamejam {
 			_background = new Background();
 			
 			Level.create(1);
+			RotationManager.generate();
 			
 			_spikes = new Spikes();
 			_door = new Door();
