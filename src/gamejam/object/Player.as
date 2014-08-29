@@ -4,13 +4,17 @@ package gamejam.object {
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
 	import flash.ui.Keyboard;
+	import gamejam.Game;
 	import gamejam.object.GameObject;
 	import gamejam.world.Level;
 	import flash.display.MovieClip;
 	import gamejam.RotationManager;
+	import flash.events.EventDispatcher
 	
 	public class Player extends GameObject {
 		public static const PULLLEVER:String = "pullLever";
+		public static const DEATH:String = "uDead";
+		public static const NEXTLEVEL:String = "nextlevel";
 		
 		private static const DEFAULT_SPEED:int = 7;
 		private static const JUMP_FORCE:int = 32;
@@ -94,6 +98,7 @@ package gamejam.object {
 			
 			if (hitSpike){
 				//TO DO: Death();
+				Main.instance.dispatchEvent(new Event(DEATH));
 				trace("HIJADISJHF");
 			}
 				

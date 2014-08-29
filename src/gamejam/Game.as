@@ -34,13 +34,18 @@ package gamejam {
 			Main.instance.addEventListener(Event.ENTER_FRAME, update);
 			_popupMenu.addEventListener(PopupMenu.RESTARTLEVEL, resetLevel);
 			_popupMenu.addEventListener(PopupMenu.NEXTLEVEL, nextLevel);
+			Main.instance.addEventListener(Player.DEATH, death);
 			
 			Main.instance.addChild(_popupMenu);
 		}
-		
-		private function popupMenu(won:Boolean):void {
+		private function death(e:Event):void
+		{
 			_popupMenu.visible = true;
-			_popupMenu.popupState(won);
+			_popupMenu.popupState(false);
+		}
+		private function won(e:Event):void {
+			_popupMenu.visible = true;
+			_popupMenu.popupState(true);
 		}
 		
 		private function update(evt:Event):void {
