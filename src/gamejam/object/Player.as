@@ -29,8 +29,8 @@ package gamejam.object {
 		private var _canMoveLeft:Boolean;
 		private var _canMoveRight:Boolean;
 		
-		public function Player(position:Point) {
-			super(new mannetje(), position);
+		public function Player(x:int, y:int) {
+			super(new mannetje(), new Point(x, y));
 			
 			_speed = DEFAULT_SPEED;
 			_velocityX = 0;
@@ -151,12 +151,8 @@ package gamejam.object {
 		}
 		
 		private function pullLever():void {
-			if(RotationManager.complete()) {
-				if(Level.getLever().hitTestObject(_movieClip)) {
-					rotate(RotationManager.getRotationDirection());
-					RotationManager.generate();
-				}
-			}
+			if(Level.getLever().hitTestObject(_movieClip))
+				RotationManager.swapDirection();
 		}
 	}
 }

@@ -26,10 +26,6 @@ package gamejam {
 		public static function handleKeyPress(e:KeyboardEvent):void {
 			if(e.keyCode == _code[_currentKeyIndex]) {
 				_currentKeyIndex++;
-				
-				if(_currentKeyIndex == _code.length) {
-					_direction = -_direction;
-				}
 			} else {
 				_currentKeyIndex = 0;
 			}
@@ -37,6 +33,10 @@ package gamejam {
 		
 		public static function complete():Boolean {
 			return _currentKeyIndex == _code.length;
+		}
+		
+		public static function swapDirection():void {
+			_direction = -_direction;
 		}
 		
 		public static function getRotationDirection():int {

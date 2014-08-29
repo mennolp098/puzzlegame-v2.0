@@ -3,14 +3,15 @@ package {
 	import flash.events.Event;
 	import flash.geom.Point;
 	import gamejam.Game;
-	import gamejam.Menus.GameMenu;
+	import gamejam.Menu.Menu;
 	
 	public class Main extends Sprite {
 		public static var stageCenter:Point;
 		
 		public static var instance:Main;
 		
-		public var _gameMenu:GameMenu;
+		private var _menu:Menu;
+		private var _game:Game;
 		
 		public function Main() {
 			if(stage) {
@@ -26,14 +27,15 @@ package {
 			stageCenter = new Point(stage.stageWidth / 2, stage.stageHeight / 2)
 			instance = this;
 			
-			_gameMenu = new GameMenu();
-			addChild(_gameMenu);
+			_menu = new Menu();
+			addChild(_menu);
 			
-			addEventListener(GameMenu.STARTGAME, startGame);
-		}	
+			addEventListener(Menu.START_GAME, startGame);
+		}
+		
 		private function startGame(e:Event):void {
-			trace("dero2");
-			new Game();
+			removeChild(_menu);
+			_game = new Game();
 		}
 	}
 }

@@ -2,14 +2,20 @@ package gamejam.world {
 	import flash.display.MovieClip;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import gamejam.object.Door;
 	import gamejam.object.Lever;
+	import gamejam.object.Player;
+	import gamejam.object.Spike;
 	
 	public class Level {
 		public static const GRAVITY:int = 15;
 		
 		private static var _level:MovieClip;
-		private static var _spikes:MovieClip;
+		
+		private static var _player:Player;
+		private static var _spikes:Spike;
 		private static var _lever:Lever;
+		private static var _door:Door;
 		
 		private static var _timer:Timer;
 		
@@ -23,8 +29,10 @@ package gamejam.world {
 			switch(levelId) {
 			case 1:
 				_level = new level01();
-				_lever = new Lever(200, 625);
-				_spikes = new spikes01();
+				_player = new Player(250, 600);
+				_lever = new Lever(117, 50, 90);
+				_spikes = new Spike(0, 0, 0);
+				_door = new Door(207, 290, 90);
 				break;
 			default:
 				trace("Level " + levelId + " doesn't exist");
@@ -32,11 +40,13 @@ package gamejam.world {
 			}
 			
 			Main.instance.addChild(_level);
-			Main.instance.addChild(_spikes);
 		}
 		
 		public static function update():void {
+			_player.update();
+			_spikes.update();
 			_lever.update();
+			_door.update();
 		}
 		
 		public static function rotate(direction:int):void {
@@ -63,7 +73,7 @@ package gamejam.world {
 		}
 		
 		public static function getSpikes():MovieClip {
-			return _spikes;
+			return _spikes._movieClip;
 		}
 	}
 }
