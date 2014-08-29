@@ -12,9 +12,8 @@ package gamejam.object {
 	import flash.events.EventDispatcher
 	
 	public class Player extends GameObject {
-		public static const PULLLEVER:String = "pullLever";
-		public static const DEATH:String = "uDead";
-		public static const NEXTLEVEL:String = "nextlevel";
+		public static const DEATH:String		= "death";
+		public static const NEXT_LEVEL:String	= "nextLevel";
 		
 		private static const DEFAULT_SPEED:int = 7;
 		private static const JUMP_FORCE:int = 32;
@@ -84,7 +83,9 @@ package gamejam.object {
 			var hitTopRight:Boolean		= levelMc.hitTestPoint(right, top, true);
 			var hitBottomLeft:Boolean	= levelMc.hitTestPoint(left, bottom, true);
 			var hitBottomRight:Boolean	= levelMc.hitTestPoint(right, bottom, true);
-			var hitSpike:Boolean		= _movieClip.hitTestObject(Level.getSpikes());
+			
+			var hitSpike:Boolean		= _movieClip.hitTestObject(Level.getSpike());
+			var hitDoor:Boolean			= _movieClip.hitTestObject(Level.getDoor()._movieClip);
 			
 			_canMoveLeft = !hitTopLeft || (!hitBottomLeft && !hitBottomRight);
 			_canMoveRight = !hitTopRight || (!hitBottomRight && !hitBottomLeft);
@@ -92,11 +93,12 @@ package gamejam.object {
 			if(hitTopLeft || hitTopRight)
 				_jumpForce = 0;
 			
-			if (hitSpike){
-				//TO DO: Death();
+			if(hitSpike)
 				Main.instance.dispatchEvent(new Event(DEATH));
-				trace("HIJADISJHF");
-			}
+			
+			if(hitDoor)
+				if(Level.getDoor()._movieClip.currentFrame == Level.getDoor()._movieClip.totalFrames)
+					Main.instance.dispatchEvent(new Event(NEXT_LEVEL));
 				
 			if(hitBottomLeft || hitBottomRight) {
 				_onGround = true;
@@ -151,8 +153,10 @@ package gamejam.object {
 		}
 		
 		private function pullLever():void {
-			if(Level.getLever().hitTestObject(_movieClip))
+			if(Level.getLever().hitTestObject(_movieClip)) {
 				RotationManager.swapDirection();
+				Level.getLever().gotoAndPlay(2);
+			}
 		}
 	}
 }

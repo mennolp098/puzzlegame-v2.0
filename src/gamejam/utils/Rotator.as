@@ -34,7 +34,7 @@ package gamejam.utils {
 			
 			_timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
 				_degrees = _degrees + 1 * _direction;
-				_radians = _degrees * Math.PI / 180;
+				_radians = _degrees * (Math.PI / 180);
 				
 				_newPosition.x = (Math.sin(_radians) * _radius) + Main.stageCenter.x;
 				_newPosition.y = (Math.cos(_radians) * _radius) + Main.stageCenter.y;
@@ -44,6 +44,7 @@ package gamejam.utils {
 				_complete = true;
 			});
 			
+			_timer.reset();
 			_timer.start();
 		}
 		

@@ -3,6 +3,7 @@ package gamejam {
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import gamejam.object.GameObject;
+	import gamejam.world.Level;
 	
 	public class RotationManager {
 		private static const _keyCodes:Array = [89, 85, 73, 79, 80];
@@ -17,30 +18,29 @@ package gamejam {
 			_code = [];
 			_currentKeyIndex = 0;
 			
-			for(var i:int = 0; i < _keyCodes.length; i++) {
+			for(var i:int = 0; i < _keyCodes.length; i++)
 				_code[i] = _keyCodes[Math.floor(Math.random() * _keyCodes.length)];
-				trace(String.fromCharCode(_code[i]));
-			}
+			
+			trace(	String.fromCharCode(_code[0]),
+					String.fromCharCode(_code[1]),
+					String.fromCharCode(_code[2]),
+					String.fromCharCode(_code[3]),
+					String.fromCharCode(_code[4]));
 		}
 		
 		public static function handleKeyPress(e:KeyboardEvent):void {
 			if(e.keyCode == _code[_currentKeyIndex]) {
 				_currentKeyIndex++;
+				
+				if(_currentKeyIndex == _code.length)
+					Level.rotate(_direction);
 			} else {
 				_currentKeyIndex = 0;
 			}
 		}
 		
-		public static function complete():Boolean {
-			return _currentKeyIndex == _code.length;
-		}
-		
 		public static function swapDirection():void {
 			_direction = -_direction;
-		}
-		
-		public static function getRotationDirection():int {
-			return _direction;
 		}
 	}
 }

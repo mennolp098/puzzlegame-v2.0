@@ -4,7 +4,6 @@ package gamejam {
 	import gamejam.object.Door;
 	import gamejam.object.Lever;
 	import gamejam.object.Player;
-	import gamejam.world.Background;
 	import gamejam.world.Level;
 	import gamejam.object.Spike;
 	
@@ -23,10 +22,11 @@ package gamejam {
 			_popupMenu.visible = false;
 			
 			Main.instance.addEventListener(Event.ENTER_FRAME, update);
+			Main.instance.addEventListener(Player.DEATH, death);
+			Main.instance.addEventListener(Player.NEXT_LEVEL, nextLevel);
 			
 			_popupMenu.addEventListener(PopupMenu.RESTARTLEVEL, resetLevel);
 			_popupMenu.addEventListener(PopupMenu.NEXTLEVEL, nextLevel);
-			Main.instance.addEventListener(Player.DEATH, death);
 			
 			Main.instance.addChild(_popupMenu);
 		}
@@ -48,8 +48,8 @@ package gamejam {
 			// TODO: reset level
 		}
 		
-		private function nextLevel():void {
-			// TODO: next level
+		private function nextLevel(e:Event):void {
+			Level.create(2);
 		}
 	}
 }

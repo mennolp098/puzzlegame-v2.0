@@ -21,17 +21,10 @@ package gamejam.object {
 			_movieClip.x = position.x;
 			_movieClip.y = position.y;
 			
-			_rotateDirection = 0;
-			
-			Main.instance.addChild(_movieClip);
+			_rotateDirection = -1;
 		}
 		
 		public function update():void {
-			if(RotationManager.complete()) {
-				_rotateDirection = RotationManager.getRotationDirection();
-				RotationManager.generate();
-			}
-			
 			if(_rotateDirection == 0) {
 				checkForCollision();
 			} else {
@@ -67,8 +60,6 @@ package gamejam.object {
 			
 			_rotator = new Rotator(new Point(_movieClip.x, _movieClip.y), radius, degrees, _rotateDirection);
 			_rotating = true;
-			
-			Level.rotate(_rotateDirection);
 		}
 		
 		public function isRotating():Boolean {
